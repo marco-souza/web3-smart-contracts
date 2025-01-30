@@ -1,5 +1,5 @@
 {
-  "name": "cryptobuilder.ai/backend",
+  "name": "@cb/backend",
   "module": "index.ts",
   "type": "module",
   "scripts": {

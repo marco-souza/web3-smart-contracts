@@ -1,5 +1,5 @@
 {
-  "name": "cryptobuilder.ia/contracts",
+  "name": "@cb/contracts",
   "module": "index.ts",
   "scripts": {
     "dev": "bun run index.ts",
