@@ -2,7 +2,7 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 
 const config: HardhatUserConfig = {
-  //solidity: "0.8.28",
+  solidity: "0.8.28",
   networks: {
     hardhat: {
       // from https://docs.metamask.io/wallet/how-to/run-devnet/
