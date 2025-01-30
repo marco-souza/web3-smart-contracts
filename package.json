@@ -1,0 +1,12 @@
+{
+  "name": "cryptobuilder.ia",
+  "module": "index.ts",
+  "version": "1.0.0",
+  "workspaces": ["apps/*", "packages/*"],
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0",
+  }
+}
