@@ -2,7 +2,7 @@
   "name": "@cb/contracts",
   "module": "index.ts",
   "scripts": {
-    "dev": "bun run index.ts",
+    "dev": "cd ./page && bun run ./server.ts",
     "compile": "hardhat compile",
     "deploy": "hardhat ignition deploy ./ignition/modules/Lock.ts",
     "local:net": "hardhat node",
