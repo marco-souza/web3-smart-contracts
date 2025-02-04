@@ -12,4 +12,8 @@ contract Counter {
     console.log("Counter is now", counter);
     return counter;
   }
+
+  function getCounter() public view returns (uint) {
+    return counter;
+  }
 }
