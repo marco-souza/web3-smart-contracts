@@ -71,7 +71,8 @@ async function run() {
   button.onclick = async () => {
     const tx = await counter.count();
     await tx.wait(); // sad ;(
-    alert("transaction confirmed: " + tx.hash);
+
+    console.log("transaction confirmed: " + tx.hash);
     setState();
   };
 
