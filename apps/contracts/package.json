@@ -16,5 +16,8 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "ethers": "^6.13.5"
   }
 }
