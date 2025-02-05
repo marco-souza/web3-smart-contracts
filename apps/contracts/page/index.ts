@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import Counter from "../artifacts/contracts/Counter.sol/Counter.json"
 
 function getEth() {
   // @ts-ignore
@@ -8,6 +9,11 @@ function getEth() {
   }
 
   return eth;
+}
+
+const CONTRACTS = {
+  hello: "0x8a791620dd6260079bf849dc5567adc3f2fdc318",
+  counter: "0x610178da211fef7d417bc0e6fed39f05609ad788",
 }
 
 async function hasAccounts() {
@@ -32,48 +38,50 @@ async function run() {
   }
 
   const eth = getEth();
-
-  const hello = new ethers.Contract(
-    "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
-    [
-      "function hello() pure returns (string)",
-    ],
-    new ethers.BrowserProvider(eth)
-  );
-
   const provider = new ethers.BrowserProvider(eth);
+
   const counter = new ethers.Contract(
     // counter contract address
-    "0x68b1d87f95878fe05b998f19b66f4baba5de1aed",
-    [
-      "function count()",
-      "function ping() pure returns (string)",
-      "function getCounter() view returns (uint)",
-    ],
+    CONTRACTS.counter,
+    Counter.abi,
     await provider.getSigner(),
   );
 
   const body = document.querySelector("body")!
 
-  body.textContent = await hello.hello();
+  // counter
 
   const pCounter = document.createElement("p");
 
-  async function setState() {
-    const num = await counter.getCounter()
-    pCounter.textContent = num.toString();
-  }
+  const num = await counter.getCounter()
+  pCounter.textContent = num.toString();
 
-  setState()
+  // on value change
+  counter.on(counter.filters.CounterInc(), (payload) => {
+    const [value, message] = payload.args;
+
+    console.log("CountIncremented event:", value, message);
+
+    pCounter.textContent = value.toString();
+    button.disabled = false;
+    button.textContent = "Count +1";
+    button.focus()
+  })
+
+  // button
 
   const button = document.createElement("button");
   button.textContent = "Count +1";
-  button.onclick = async () => {
-    const tx = await counter.count();
-    await tx.wait(); // sad ;(
+  // autofocus
+  button.focus();
 
-    console.log("transaction confirmed: " + tx.hash);
-    setState();
+  button.onclick = () => {
+    counter.count();
+    counter.count();
+    counter.count();
+    counter.count();
+    button.disabled = true;
+    button.textContent = "Counting...";
   };
 
   body.appendChild(pCounter);

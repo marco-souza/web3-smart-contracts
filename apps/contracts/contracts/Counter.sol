@@ -7,14 +7,12 @@ import "hardhat/console.sol";
 contract Counter {
   uint counter;
 
-  constructor() {
-    counter = 0;
-  }
+  event CounterInc(uint value, string message);
 
   // change state (use gas)
   function count() public {
     counter++;
-    console.log("Counter is now", counter);
+    emit CounterInc(counter, "Counter incremented!");
   }
 
   // view state (no gas)
