@@ -7,13 +7,23 @@ import "hardhat/console.sol";
 contract Counter {
   uint counter;
 
-  function count() public returns (uint) {
+  constructor() {
+    counter = 0;
+  }
+
+  // change state (use gas)
+  function count() public {
     counter++;
     console.log("Counter is now", counter);
+  }
+
+  // view state (no gas)
+  function getCounter() public view returns (uint) {
     return counter;
   }
 
-  function getCounter() public view returns (uint) {
-    return counter;
+  // pure function (no gas)
+  function ping() public pure returns (string memory) {
+    return "pong";
   }
 }
