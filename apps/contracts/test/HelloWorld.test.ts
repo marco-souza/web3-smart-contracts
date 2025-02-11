@@ -7,6 +7,6 @@ describe("HelloWorld", () => {
     const helloWorld = await HelloWorld.deploy();
     await helloWorld.waitForDeployment()
 
-    expect(await helloWorld.hello()).to.equal("Hello, World!");
+    expect(await helloWorld.hello()).to.equal("Hello, World from Solidity!");
   })
 })
