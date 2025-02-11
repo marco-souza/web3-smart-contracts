@@ -1,5 +1,8 @@
 import { expect } from "chai";
 import hre from "hardhat";
+import { ONE_GWEI } from "./contants";
+
+const insufficientFunds = "Please send at least 0.05 ether"
 
 describe("Hero", () => {
   async function createHero() {
@@ -10,8 +13,16 @@ describe("Hero", () => {
     return hero;
   }
 
+  it("should fail to create a hero cause of payment with no argument", async () => {
+    const hero = await createHero();
+    const res = hero.createHero();
+    await expect(res).to.be.revertedWith(insufficientFunds);
+  })
+
   it("should fail to create a hero cause of payment", async () => {
     const hero = await createHero();
-    await expect(hero.createHero()).to.be.revertedWith("Please send at least 0.05 ether");
+    const res = hero.createHero({ value: 0.0499999 * ONE_GWEI });
+
+    await expect(res).to.be.revertedWith(insufficientFunds);
   });
 })
