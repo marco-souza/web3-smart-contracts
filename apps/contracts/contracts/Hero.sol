@@ -17,5 +17,16 @@ contract Hero {
     require(msg.value >= 0.05 ether, "Please send at least 0.05 ether");
 
     console.log("Create hero to user %s with Class %d", msg.sender, uint(heroClass));
+
+    // stats are randomly generated
+    // strength, health, dexterity, intellect, magic
+  }
+
+  function generateRandomNumber() public view returns (uint) {
+    return uint(
+      keccak256( // generate 256 bites random numbers
+        abi.encodePacked(block.timestamp, block.difficulty)
+      )
+    );
   }
 }

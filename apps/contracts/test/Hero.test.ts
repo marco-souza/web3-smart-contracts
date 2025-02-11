@@ -31,4 +31,15 @@ describe("Hero", () => {
 
     await expect(res).to.not.be.reverted;
   });
+
+  it("should generate a random number", async () => {
+    const hero = await createHero();
+    const res = hero.generateRandomNumber()
+    const randomNum = await res;
+
+    await expect(res).to.not.be.reverted;
+    expect(randomNum).to.be.greaterThan(0);
+    // check if is bigint
+    expect(typeof randomNum).to.equal("bigint");
+  })
 })
