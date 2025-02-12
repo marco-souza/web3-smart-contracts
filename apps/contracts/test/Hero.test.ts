@@ -34,7 +34,7 @@ describe("Hero", () => {
 
   it("should generate a random number", async () => {
     const hero = await createHero();
-    const res = hero.generateRandomNumber()
+    const res = hero.generateRandom()
     const randomNum = await res;
 
     await expect(res).to.not.be.reverted;

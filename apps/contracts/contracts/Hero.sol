@@ -13,7 +13,7 @@ contract Hero {
     return addressToHeroes[msg.sender];
   }
 
-  function createHero(Class heroClass) public payable returns (uint) {
+  function createHero(Class heroClass) public payable {
     require(msg.value >= 0.05 ether, "Please send at least 0.05 ether");
 
     console.log("Create hero to user %s with Class %d", msg.sender, uint(heroClass));
@@ -35,11 +35,12 @@ contract Hero {
     uint hero = uint(heroClass);
 
     do {
-      uint pos = generateRandomNumber() % len;
-      uint value = generateRandomNumber() % (13 + len) + 1;
+      uint pos = generateRandom() % len;
+      uint value = generateRandom() % (13 + len) + 1;
 
       // shift the value to the correct position + add to the hero
       hero |= value << stats[pos];
+      console.log("pos: %d, value: %d, hero: %d", pos, value, hero);
 
       // decrement length
       len--;
@@ -49,8 +50,6 @@ contract Hero {
     } while (len > 0);
 
     addressToHeroes[msg.sender].push(hero);
-
-    return hero;
   }
 
   function getClass(uint hero) public pure returns (Class) {
@@ -77,10 +76,10 @@ contract Hero {
     return (hero >> 22) & 0x1F; // 11111
   }
 
-  function generateRandomNumber() public view returns (uint) {
+  function generateRandom() virtual public view returns (uint) {
     return uint(
       keccak256( // generate 256 bites random numbers
-        abi.encodePacked(block.timestamp, block.difficulty)
+        abi.encodePacked(block.timestamp, block.prevrandao) // dificulty
       )
     );
   }
