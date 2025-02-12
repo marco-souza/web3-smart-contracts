@@ -2,7 +2,7 @@ async function main() {
   await Bun.build({
     entrypoints: ["./index.ts"],
     outdir: "./dist",
-  })
+  });
 
   return Bun.serve({
     port: 6969,
@@ -14,11 +14,14 @@ async function main() {
         },
       }),
 
-      "/dist/index.js": new Response(await Bun.file("./dist/index.js").bytes(), {
-        headers: {
-          "Content-Type": "text/html",
-        },
-      }),
+      "/dist/index.js": new Response(
+        await Bun.file("./dist/index.js").bytes(),
+        {
+          headers: {
+            "Content-Type": "text/html",
+          },
+        }
+      ),
 
       // serve JSON
       "/version.json": Response.json({ version: "1.0.0" }),
@@ -31,6 +34,8 @@ async function main() {
 }
 
 main()
-  .then((s) => console.log(`Server started!
-    http://${s.hostname}:${s.port}`))
+  .then((s) =>
+    console.log(`Server started!
+    http://${s.hostname}:${s.port}`)
+  )
   .catch(console.error);

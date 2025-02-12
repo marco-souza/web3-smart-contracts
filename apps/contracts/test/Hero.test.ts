@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import hre, { ethers } from "hardhat";
 
-const insufficientFunds = "Please send at least 0.05 ether"
+const insufficientFunds = "Please send at least 0.05 ether";
 
 describe("Hero", () => {
   async function createHero() {
@@ -16,11 +16,13 @@ describe("Hero", () => {
     const hero = await createHero();
     const res = hero.createHero(0);
     await expect(res).to.be.revertedWith(insufficientFunds);
-  })
+  });
 
   it("should fail to create a hero cause of payment", async () => {
     const hero = await createHero();
-    const res = hero.createHero(0, { value: ethers.parseEther("0.04999999999") });
+    const res = hero.createHero(0, {
+      value: ethers.parseEther("0.04999999999"),
+    });
 
     await expect(res).to.be.revertedWith(insufficientFunds);
   });
@@ -34,16 +36,15 @@ describe("Hero", () => {
 
   it("should generate a random number", async () => {
     const hero = await createHero();
-    const res = hero.generateRandom()
+    const res = hero.generateRandom();
     const randomNum = await res;
 
     await expect(res).to.not.be.reverted;
     expect(randomNum).to.be.greaterThan(0);
     // check if is bigint
     expect(typeof randomNum).to.equal("bigint");
-  })
-})
-
+  });
+});
 
 describe("TestHero", () => {
   async function createHero() {
@@ -57,7 +58,7 @@ describe("TestHero", () => {
   it("check if empty array", async () => {
     const hero = await createHero();
     expect(await hero.getHeroes()).to.lengthOf(0);
-  })
+  });
 
   it("check the class of a created hero", async () => {
     const hero = await createHero();
@@ -95,7 +96,5 @@ describe("TestHero", () => {
     expect(await hero.getDexterity(h2)).to.equal(1);
     // [ H ],             p: 0, v: 1
     expect(await hero.getHealth(h2)).to.equal(1);
-
-  })
-})
-
+  });
+});
