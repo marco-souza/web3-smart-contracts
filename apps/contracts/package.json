@@ -3,11 +3,11 @@
   "module": "index.ts",
   "scripts": {
     "dev": "cd ./page && bun run ./server.ts",
+    "fmt": "bunx prettier --write test scripts page",
+    "hh": "hardhat",
     "compile": "hardhat compile",
     "deploy": "hardhat ignition deploy ./ignition/modules/Lock.ts",
-    "local:net": "hardhat node",
-    "local:deploy": "npx hardhat ignition deploy ./ignition/modules/Lock.ts --network localhost",
-    "test": "hardhat test"
+    "local:deploy": "npx hardhat ignition deploy ./ignition/modules/Lock.ts --network localhost"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
