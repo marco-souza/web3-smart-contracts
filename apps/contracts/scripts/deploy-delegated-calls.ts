@@ -66,8 +66,6 @@ const main = async () => {
 
   await testDelegateCall(a, b)
 
-
-
   await b.setB(0x45)
   console.log("-----------")
   await printStorage(a, "A", 3)

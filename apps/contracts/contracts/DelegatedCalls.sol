@@ -6,14 +6,14 @@ import "hardhat/console.sol";
 import "./Storage.sol";
 
 contract A {
-  uint a;
+  AppStorage internal s;
 
   function setA(uint _a) public {
-    a = _a;
+    s.a = _a;
   }
 
   function getA() public view returns (uint) {
-    return a;
+    return s.a;
   }
 }
 

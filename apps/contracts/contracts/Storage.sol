@@ -13,3 +13,15 @@ struct AppStorage {
 
   address A;
 }
+
+library Storage {
+  bytes32 constant KEY = keccak256("storage.app");
+
+  function get() internal pure returns (AppStorage storage s) {
+    // NOTE: assembly only reads local scope variables
+    bytes32 k = KEY;
+    assembly {
+      s.slot := k
+    }
+  }
+}
