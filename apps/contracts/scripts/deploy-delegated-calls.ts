@@ -38,6 +38,11 @@ const main = async () => {
   console.log("B", await b.getB())
   console.log("-----------")
 
+  await b.setBDel(69)
+  console.log("A", await a.getA())
+  console.log("B", await b.getB())
+  console.log("-----------")
+
   await b.setB(69)
   console.log("A", await a.getA())
   console.log("B", await b.getB())
