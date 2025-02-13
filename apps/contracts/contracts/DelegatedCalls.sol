@@ -5,19 +5,19 @@ pragma solidity ^0.8.28;
 import "hardhat/console.sol";
 
 contract A {
-  uint value;
+  uint a;
 
   function setA(uint _a) public {
-    value = _a;
+    a = _a;
   }
 
   function getA() public view returns (uint) {
-    return value;
+    return a;
   }
 }
 
 contract B {
-  uint value;
+  uint b;
   address ContractA;
 
   constructor(address _A) {
@@ -25,22 +25,19 @@ contract B {
   }
 
   function setB(uint _b) public {
-    value = _b;
+    b = _b;
 
     // cast A and set A
     A(ContractA).setA(_b + 1);
   }
 
   function setBDel(uint _b) public {
-    value = _b;
+    b = _b;
 
     // delegate call to A
-    (bool success, bytes memory data) = ContractA.delegatecall(
-      abi.encodeWithSignature("setA(uint256)", _b + 1)
+    (bool success, bytes memory _data) = ContractA.delegatecall(
+      abi.encodeWithSignature("setA(uint256)", b + 1)
     );
-
-    console.log("Delegate call success: %s", success);
-    // console.log("Delegate call data: %s", data);
 
     require(success, "Delegate call failed");
 

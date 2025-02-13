@@ -14,7 +14,8 @@ foo.foo()
 foo.foo.call({ bar: 42 })
 
 
-async function deploy(Contract: ContractFactory, ...args) {
+async function deploy(name: string, ...args) {
+  const Contract = await ethers.getContractFactory(name);
   const c = await Contract.deploy(...args);
   await c.waitForDeployment();
 
@@ -22,11 +23,8 @@ async function deploy(Contract: ContractFactory, ...args) {
 }
 
 const main = async () => {
-  const A = await ethers.getContractFactory("A");
-  const a = await deploy(A)
-
-  const B = await ethers.getContractFactory("B");
-  const b = await deploy(B, await a.getAddress())
+  const a = await deploy("A")
+  const b = await deploy("B", await a.getAddress())
 
   console.log("A", await a.getA())
   console.log("B", await b.getB())
@@ -38,12 +36,16 @@ const main = async () => {
   console.log("B", await b.getB())
   console.log("-----------")
 
-  await b.setBDel(69)
+  await b.setB(69)
   console.log("A", await a.getA())
   console.log("B", await b.getB())
   console.log("-----------")
 
-  await b.setB(69)
+  await b.setBDel(30)
+  console.log("A", await a.getA())
+  console.log("B", await b.getB())
+  console.log("-----------")
+
   console.log("A", await a.getA())
   console.log("B", await b.getB())
   console.log("-----------")
