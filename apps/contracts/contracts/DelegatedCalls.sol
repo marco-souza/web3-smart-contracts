@@ -3,6 +3,7 @@ pragma solidity ^0.8.28;
 
 // Uncomment this line to use console.log
 import "hardhat/console.sol";
+import "./Storage.sol";
 
 contract A {
   uint a;
@@ -17,40 +18,36 @@ contract A {
 }
 
 contract B {
-  uint b;
-  uint8 c;
-  uint8 d;
-  uint8 e;
-  address ContractA;
+  AppStorage internal s;
 
   constructor(address _A) {
-    ContractA = _A;
-    b = 8;
-    c = 0x45;
-    d = 0xF5;
-    e = 0x0F;
+    s.A = _A;
+    s.b = 8;
+    s.c = 0x45;
+    s.d = 0xF5;
+    s.e = 0x0F;
   }
 
-  function setB(uint _b) public {
-    b = _b;
+  function setB(uint8 _b) public {
+    s.b = _b;
 
     // cast A and set A
-    A(ContractA).setA(_b + 1);
+    A(s.A).setA(_b + 1);
   }
 
-  function setBDel(uint _b) public {
-    b = _b;
+  function setBDel(uint8 _b) public {
+    s.b = _b;
 
     // delegate call to A
-    (bool success, bytes memory _data) = ContractA.delegatecall(
-      abi.encodeWithSignature("setA(uint256)", b + 1)
+    (bool success, bytes memory _data) = s.A.delegatecall(
+      abi.encodeWithSignature("setA(uint256)", _b + 1)
     );
 
     require(success, "Delegate call failed");
 
   }
 
-  function getB() public view returns (uint) {
-    return b;
+  function getB() public view returns (uint8) {
+    return s.b;
   }
 }
