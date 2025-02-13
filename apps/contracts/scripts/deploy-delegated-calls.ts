@@ -22,33 +22,53 @@ async function deploy(name: string, ...args) {
   return c;
 }
 
+//const main = async () => {
+//  const a = await deploy("A")
+//  const b = await deploy("B", await a.getAddress())
+//
+//  console.log("A", await a.getA())
+//  console.log("B", await b.getB())
+//  console.log("-----------")
+//
+//
+//  await a.setA(420)
+//  console.log("A", await a.getA())
+//  console.log("B", await b.getB())
+//  console.log("-----------")
+//
+//  await b.setB(69)
+//  console.log("A", await a.getA())
+//  console.log("B", await b.getB())
+//  console.log("-----------")
+//
+//  await b.setBDel(30)
+//  console.log("A", await a.getA())
+//  console.log("B", await b.getB())
+//  console.log("-----------")
+//
+//  console.log("A", await a.getA())
+//  console.log("B", await b.getB())
+//  console.log("-----------")
+//
+//};
+
+async function printStorage(contract, name, count) {
+  console.log(name)
+  for (let i = 0; i < count; i++) {
+    const addr = await contract.getAddress()
+    console.log(
+      i,
+      await ethers.provider.getStorage(addr, i)
+    )
+  }
+}
+
 const main = async () => {
   const a = await deploy("A")
   const b = await deploy("B", await a.getAddress())
 
-  console.log("A", await a.getA())
-  console.log("B", await b.getB())
-  console.log("-----------")
+  printStorage(b, "B", 4)
 
-
-  await a.setA(420)
-  console.log("A", await a.getA())
-  console.log("B", await b.getB())
-  console.log("-----------")
-
-  await b.setB(69)
-  console.log("A", await a.getA())
-  console.log("B", await b.getB())
-  console.log("-----------")
-
-  await b.setBDel(30)
-  console.log("A", await a.getA())
-  console.log("B", await b.getB())
-  console.log("-----------")
-
-  console.log("A", await a.getA())
-  console.log("B", await b.getB())
-  console.log("-----------")
 
 };
 
