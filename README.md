@@ -1,16 +1,21 @@
 # Web3 Smart Contracts
 
-This repository is a part of the "Web3 and Smart Contracts" course by The Primeagen on Frontend Masters.
+This repository is a part of the "Web3 Smart Contracts" course by The Primeagen on Frontend Masters.
 
 The course provides a comprehensive introduction to building decentralized applications using Web3 technologies.
 
-References:
 - https://frontendmasters.com/courses/web3-smart-contracts/
 
 ## Prerequisites
 
+- [Bun](https://bun.sh/) installed for running JavaScript applications
+- [direnv](https://direnv.net/) installed for environment variable management
 - [MetaMask](https://metamask.io/) installed and configured
 - Basic understanding of JavaScript and blockchain concepts
+
+## Environment Setup
+
+Ensure you have a `.env` file in the project root. The environment variables will be automatically loaded by `direnv`.
 
 ## Installation
 
