@@ -1,48 +1,83 @@
-# cryptobuilder.ia
+# Web3 Smart Contracts
 
-To install dependencies:
+This repository is a part of the "Web3 and Smart Contracts" course by The Primeagen on Frontend Masters.
+
+The course provides a comprehensive introduction to building decentralized applications using Web3 technologies.
+
+References:
+- https://frontendmasters.com/courses/web3-smart-contracts/
+
+## Prerequisites
+
+- [MetaMask](https://metamask.io/) installed and configured
+- Basic understanding of JavaScript and blockchain concepts
+
+## Installation
+
+To install the necessary dependencies, run:
 
 ```bash
 bun install
 ```
 
-To run:
+## Running the Project
+
+To start the project, execute:
 
 ```bash
 bun run index.ts
 ```
 
-This project was created using `bun init` in bun v1.2.1. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## Monorepo Structure
+
+This project is organized as a Bun monorepo, containing multiple applications:
+
+- **Contracts**: The smart contracts are written in Solidity and are located in the `apps/contracts/` directory.
+- **Frontend**: The frontend application is located in the `apps/frontend/` directory.
+- **Backend**: The backend application is located in the `apps/backend/` directory.
 
 ## Contracts
 
-The contracts are written in Solidity and can be found in the `apps/contracts/` directory.
+You can compile, test, and deploy the smart contracts using the following commands:
 
 ```bash
 bun run compile
 bun run test
 bun run deploy
-
-
-# running locally
 ```
 
-> [!WARNING]
-> To test this project locally you need to have MetaMask installed and configured. Once you have that you can connect to your local network
-> - https://docs.metamask.io/wallet/how-to/run-devnet/
-> - https://hardhat.org/hardhat-network/docs/reference#accounts
+## Running Locally
 
+To test the project locally, ensure MetaMask is connected to your local network. Follow these steps:
 
-### Running locally
+1. Run the local network:
+   ```bash
+   bun run local:net
+   ```
 
-- run `bun run local:net` to deploy the contract to your local network
-- add the local network to MetaMask
-  - Network Name: Localhost 8545
-  - New RPC URL: http://localhost:8545
-  - Chain ID: 1337
-  - Currency Symbol: ETH
-- setup the created accounts to your MetaMask wallet
-- run `bun run local:deploy` to create accounts for the local network
-- run `bun run test` to run the tests
+2. Add the local network to MetaMask:
+   - Network Name: Localhost 8545
+   - New RPC URL: http://localhost:8545
+   - Chain ID: 1337
+   - Currency Symbol: ETH
 
+3. Set up the created accounts in your MetaMask wallet.
+
+4. Deploy contracts to the local network:
+   ```bash
+   bun run local:deploy
+   ```
+
+5. Run the tests:
+   ```bash
+   bun run test
+   ```
+
+## Additional Resources
+
+For more information, refer to the following resources:
+- [MetaMask Documentation](https://docs.metamask.io/wallet/how-to/run-devnet/)
+- [Hardhat Network Reference](https://hardhat.org/hardhat-network/docs/reference#accounts)
+
+This project was created using `bun init` in bun v1.2.1. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
 
