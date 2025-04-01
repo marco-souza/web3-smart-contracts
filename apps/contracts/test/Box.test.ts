@@ -15,7 +15,7 @@ describe("Box Contract", function() {
     [owner, notOwner] = signers;
 
     const BoxFactory = await ethers.getContractFactory("Box");
-    box = await BoxFactory.deploy(owner.address);
+    box = await BoxFactory.deploy();
     await box.waitForDeployment();
   });
 
@@ -36,7 +36,7 @@ describe("Box Contract", function() {
 
   it("should not allow non-owner to store a value", async function() {
     const boxWithNotOwner = box.connect(notOwner);
-    await expect(boxWithNotOwner.store(100)).to.be.revertedWith("Not authorized");
+    await expect(boxWithNotOwner.store(100)).to.be.revertedWithCustomError(box, "OwnableUnauthorizedAccount").withArgs(notOwner.address);
   });
 
   it("should allow owner to retrieve a value", async function() {
@@ -46,7 +46,7 @@ describe("Box Contract", function() {
 
   it("should not allow non-owner to retrieve a value", async function() {
     const boxWithNotOwner = box.connect(notOwner);
-    await expect(boxWithNotOwner.retrieve()).to.be.revertedWith("Not authorized");
+    await expect(boxWithNotOwner.retrieve()).to.be.revertedWithCustomError(box, "OwnableUnauthorizedAccount").withArgs(notOwner.address);
   });
 });
 

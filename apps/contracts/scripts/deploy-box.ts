@@ -1,10 +1,8 @@
 import { ethers } from "hardhat";
 
-const owner = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
-
 async function deploy() {
   const BoxFactory = await ethers.getContractFactory("Box");
-  const box = await BoxFactory.deploy(owner);
+  const box = await BoxFactory.deploy();
   await box.waitForDeployment();
 
   return box;
@@ -28,7 +26,7 @@ deploy().then(async (box) => {
 
   // use contract address as sender
   const boxWithNotOwner = box.connect(notOwner);
-  console.log(`Using contract address ${notOwner} as sender.`);
+  console.log(`Using contract address ${await notOwner.getAddress()} as sender.`);
 
   await boxWithNotOwner.retrieve().catch(e => {
     console.warn(`Error retrieving value from Box as sender: ${e.message}`, e);
