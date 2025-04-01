@@ -3,30 +3,22 @@
 pragma solidity ^0.8.28;
 
 import "hardhat/console.sol";
-import "./Auth.sol";
+// Import Ownable from the OpenZeppelin Contracts library
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Box {
+contract Box is Ownable {
     uint256 private _value;
-    Auth private _auth;
-
-    constructor(address deployer) {
-        _auth = new Auth(deployer);
-    }
 
     event ValueChanged(uint256 value);
 
-    function store(uint256 value) public {
-        require(_auth.isAuthorized(msg.sender), "Not authorized");
-        require(value > 0, "Value must be greater than 0");
+    constructor() Ownable(msg.sender) {}
 
+    function store(uint256 value) public onlyOwner {
         _value = value;
-
         emit ValueChanged(value);
     }
 
-    function retrieve() public view returns (uint256) {
-        require(_auth.isAuthorized(msg.sender), "Not authorized");
-
+    function retrieve() public view onlyOwner returns (uint256) {
         return _value;
     }
 }
