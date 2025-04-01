@@ -9,6 +9,9 @@ async function deploy() {
 }
 
 deploy().then(async (fallback) => {
-  const f = await ethers.getContractAt("IFallback", await fallback.getAddress());
+  const f = await ethers.getContractAt(
+    "IFallback",
+    await fallback.getAddress()
+  );
   console.log("Hello World is : ", await f.count());
 });
